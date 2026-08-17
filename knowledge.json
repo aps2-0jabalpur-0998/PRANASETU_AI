@@ -1,0 +1,15 @@
+{
+  "project": "PranaSetu",
+  "description": "PranaSetu is an environmental technology project combining security, fire safety, blue carbon and algae-based environmental solutions.",
+  "modules": {
+    "intruder": "The intruder system detects unauthorized movement using sensors such as PIR, IR or a camera. When an intrusion is detected, the system can raise an alert.",
+    "fire": "The fire detection system can use flame and smoke sensors. When dangerous conditions are detected, it raises an emergency alert and can activate protective devices.",
+    "blue_carbon": "Blue carbon refers to carbon captured and stored by coastal and marine ecosystems such as mangroves, seagrass meadows and salt marshes. These ecosystems store carbon in biomass and sediments.",
+    "green_algae_tree": "The Green Algae Tree is a conceptual environmental system using algae to absorb carbon dioxide during photosynthesis. The algae use light, water and nutrients to grow while taking up CO2."
+  },
+  "faq": {
+    "what is blue carbon": "Blue carbon is carbon captured and stored by coastal and marine ecosystems, especially mangroves, seagrasses and salt marshes.",
+    "how does algae reduce co2": "Algae perform photosynthesis. They use light energy to convert carbon dioxide and water into organic matter and release oxygen.",
+    "what is the purpose of the project": "PranaSetu connects environmental protection, safety and technology into one integrated system."
+  }
+}
