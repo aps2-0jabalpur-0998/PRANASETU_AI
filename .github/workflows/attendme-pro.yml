@@ -1,0 +1,59 @@
+name: Build AttendMe Offline Pro APK
+
+on:
+  push:
+    branches:
+      - chatgpt-attendme-pro-v1
+    paths:
+      - 'attendme-pro/**'
+      - '.github/workflows/attendme-pro.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore project
+        shell: bash
+        run: |
+          mkdir -p attendme-pro/buildsrc
+          base64 -d attendme-pro/project.b64 > attendme-pro/project.zip
+          unzip -q attendme-pro/project.zip -d attendme-pro/buildsrc
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK 35
+        shell: bash
+        run: yes | sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10.2'
+
+      - name: Build debug APK
+        shell: bash
+        run: gradle -p attendme-pro/buildsrc :app:assembleDebug --stacktrace
+
+      - name: Prepare APK
+        shell: bash
+        run: |
+          cp attendme-pro/buildsrc/app/build/outputs/apk/debug/app-debug.apk AttendMe-Offline-Pro-v1.0.apk
+          sha256sum AttendMe-Offline-Pro-v1.0.apk
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: AttendMe-Offline-Pro-v1.0
+          path: AttendMe-Offline-Pro-v1.0.apk
+          if-no-files-found: error
