@@ -20,7 +20,10 @@ jobs:
         shell: bash
         run: |
           mkdir -p attendme-pro/buildsrc
-          base64 -d attendme-pro/project.b64 > attendme-pro/project.zip
+          cat attendme-pro/chunks/chunk_* > attendme-pro/payload.b64
+          echo 'deab48479834765e15de83bd90b956fd6f2a9deb51c88aebe9f9870636a3fee3  attendme-pro/payload.b64' | sha256sum -c -
+          base64 -d attendme-pro/payload.b64 > attendme-pro/project.zip
+          echo '934c376579b1a2c4ad6c47c933345bcdad627f0bdff2bc6fe049e0b6510ea53a  attendme-pro/project.zip' | sha256sum -c -
           unzip -q attendme-pro/project.zip -d attendme-pro/buildsrc
 
       - name: Set up Java 17
